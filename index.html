@@ -6,6 +6,12 @@
     <title>Portfolio Website</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function() {
+          emailjs.init('rChKsjB4w0y5nJXdL'); // Initialized with your EmailJS User ID
+       })();
+    </script>
 </head>
 <body>
 <header class="header">
@@ -26,7 +32,6 @@
         <h3 class="text-animation">I'm a <span></span></h3>
         <p>Electronics and Computing student at COMSATS Islamabad, specializing in systems design and software analysis with proficiency in C/C++, Python, and Java. Additionally, I am skilled in frontend web development using HTML, CSS, JavaScript, and React. Enthusiastic about creating innovative solutions and eager to explore diverse career opportunities in technology.</p>
         
-     
         <div class="social-icons">
             <a href="https://www.linkedin.com/in/anas-bin-javed-073196247/" target="_blank"><i class='bx bxl-linkedin'></i></a>
             <a href="https://github.com/anasjaved17" target="_blank"><i class='bx bxl-github'></i></a>
@@ -38,7 +43,6 @@
         <div class="btn-group">
             <a href="#" class="btn">Hire</a>
             <a href="#contact" class="btn">Contact</a>
-            
             <a href="Resume (1).pdf" class="btn" download>Download My CV</a>
         </div>
     </div>
@@ -157,19 +161,19 @@
 <section class="contact" id="contact">
     <h2 class="heading">Contact <span>Me</span></h2>
 
-    <form action="#">
+    <form id="contact-form">
         <div class="input-group">
             <div class="input-box">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Email">
+                <input type="text" id="name" placeholder="Full Name" required>
+                <input type="email" id="email" placeholder="Email" required>
             </div>
             <div class="input-box">
-                <input type="number" placeholder="Phone Number">
-                <input type="text" placeholder="Subject">
+                <input type="number" id="phone" placeholder="Phone Number">
+                <input type="text" id="subject" placeholder="Subject">
             </div>
         </div>
         <div class="input-group-2">
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+            <textarea id="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
             <input type="submit" value="Send Message" class="btn">
         </div>
     </form>
@@ -178,12 +182,11 @@
 <footer class="footer">
     <div class="social">
         <a href="https://www.linkedin.com/in/your-profile" target="_blank"><i class='bx bxl-linkedin'></i></a>
-        <a href="https://github.com/your-profile" target="_blank"><i class='bx bxl-github'></i></a>
-        <a href="https://www.instagram.com/your-profile" target="_blank"><i class='bx bxl-instagram'></i></a>
-        <a href="https://twitter.com/your-profile" target="_blank"><i class='bx bxl-twitter'></i></a>
-        <a href="https://www.facebook.com/your-profile" target="_blank"><i class='bx bxl-facebook'></i></a>
+        <a href="https://github.com/anasjaved17" target="_blank"><i class='bx bxl-github'></i></a>
+        <a href="https://www.instagram.com/anas.javed_/" target="_blank"><i class='bx bxl-instagram'></i></a>
+        <a href="https://x.com/anasbinjaved13" target="_blank"><i class='bx bxl-twitter'></i></a>
+        <a href="https://www.facebook.com/anasbinjaved18/" target="_blank"><i class='bx bxl-facebook'></i></a>
     </div>
-
 
     <ul class="list">
         <li><a href="#">FAQ</a></li>
@@ -199,5 +202,36 @@
 </footer>
 
 <script src="script.js"></script>
+<script type="text/javascript">
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+
+    emailjs.send("service_uogmioi", "template_xe6n1tu", {
+        from_name: name,
+        from_email: email,
+        phone: phone,
+        subject: subject,
+        message: message
+    })
+    .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+        alert('Message sent successfully!');
+    }, function(error) {
+        console.log('FAILED...', error);
+        alert('Failed to send the message. Please try again later.');
+    });
+
+    
+    document.getElementById('contact-form').reset();
+});
+</script>
 </body>
 </html>
+
